@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('../partials/head.ejs') %>
+  <title><%= title %></title>
+</head>
+<body>
+  <!-- Navigation Bar -->
+  <nav class="teal">
+    <div class="nav-wrapper">
+        <a href="/" class="brand-logo center">📚 Library</a>
+    </div>
+</nav>
+<!-- main content -->
+<div class="container bottomMargin" >
+  <div class="card">
+      <div class="card-content">
+          <p><strong>Title:</strong><%= book.title %></p>
+          <p><strong>Author:</strong><%= book.author %></p>
+      </div>
+      <div class="card-action">
+          <a href="" class="btn waves-effect waves-light teal">Edit</a>
+          <button class="btn red waves-effect waves-light">Delete</button>
+      </div>
+  </div>
+</div>
+</body>
+</html>

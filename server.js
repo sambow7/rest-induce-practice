@@ -57,15 +57,15 @@ app.post('/books', (req, res) => {
   res.status(201).redirect('/books')
 });
 
-//Show
+// SHOW
 app.get('/books/:id', (req, res) => {
-  const book = books.find(book => book.id === parseInt(req.params.id));
-  if (book) {
-    res.json(book)
-  } else {
-    res.status(404).json({ message: "Book not found" })
-  }
-});
+    const book = books.find(book => book.id === parseInt(req.params.id));
+    if (book) {
+        res.render('books/show', { title: 'Book Details', book })
+    } else {
+        res.status(404).render('404/notFound', { title: "Book not found" })
+    }
+})
 
 // EDIT
 app.put('/books/:id', (req, res) => {
