@@ -4,7 +4,7 @@ const morgan = require('morgan');
 const books = require('./data/books.js');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3001;
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -102,6 +102,6 @@ app.get('/books/:id/edit', (req, res) => {
     }
 })
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });
