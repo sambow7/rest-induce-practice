@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%- include('../partials/head') %>
+    <title>
+      <%= title %>
+    </title>
+</head>
+
+<body>
+  <%- include('../partials/nav') %>
+
+    <div class="container">
+      <div class="center-align" style="margin-top: 40px;">
+        <ul class="collection">
+          <% books.forEach(book=> { %>
+            <li class="collection-item">
+              <a href="/books/<%= book.id %>">
+                <strong>
+                  <%= book.title %>
+                </strong> by <%= book.author %>
+              </a>
+              <div class="container row">
+                <div class="col s3">
+                  <img class="responsive-image" src="<%= book.coverImage %>" alt="<%= book.title %>"
+                    style="max-height: 200px;">
+                </div>
+                <div class="left-align col s9">
+                  <%- book.description %>
+                </div>
+              </div>
+            </li>
+            <% }) %>
+      </div>
+      <a href="/books/new" class="btn blue darken-1">Add New Book</a>
+
+</body>
+
+</html>

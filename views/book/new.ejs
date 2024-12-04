@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %>
+  </title>
+  <%- include('../partials/head') %>
+</head>
+
+<body>
+  <%- include('../partials/nav') %>
+
+    <div class="container" id="bottomMargin">
+      <h1 class="center-align">Add a New Book</h1>
+      <form action="/books" method="POST" class="col s12">
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" name="title" id="title" required>
+            <label for="title">Title</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" name="author" id="author" required>
+            <label for="author">Author</label>
+          </div>
+        </div>
+        <div class="row center-align">
+          <button class="btn wave-affect waves-ligth teal">Submit</button>
+          <a href="/books" class="btn waves-effect waves-light orange">Back</a>
+        </div>
+      </form>
+    </div>
+</body>
+
+</html>

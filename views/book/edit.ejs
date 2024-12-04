@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>
+    <%= title %>
+  </title>
+  <%- include('../partials/head') %>
+</head>
+
+<body>
+  <%- include('../partials/nav') %>
+
+    <div class="container" id="bottomMargin">
+      <h1 class="center-align">
+        <%= book.title %>
+      </h1>
+      <form action="/books/<%= book.id %>?_method=PUT" method="POST" style="display: inline">
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" name="title" id="title" value="<%= book.title %>" required>
+            <label for="title">Title</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" name="author" id="author" value="<%= book.author %>" required>
+            <label for="author">Author</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" name="published" id="published" value="<%= book.published %>" required>
+            <label for="published">Published</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" name="coverImage" id="coverImage" value="<%= book.coverImage %>" required>
+            <label for="coverImage">Cover Image</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea name="description" id="description" class="materialize-textarea"
+              required><%= book.description %></textarea>
+            <label for="description">Description</label>
+          </div>
+        </div>
+        <div class="row center-align">
+          <button type="submit" class="btn wave-effect waves-light teal">Update Book</button>
+      </form>
+      <a href="/books" class="btn waves-effect waves-light orange">Back</a>
+      <form action="/books/<%= book.id %>?_method=DELETE" method="POST" style="display: inline">
+        <button type="submit" class="btn red darken-1">Delete Book</button>
+      </form>
+    </div>
+</body>
+
+</html>
