@@ -1,22 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%- include('../partials/head.ejs') %>
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <%- include('../partials/head') %>
+    <title>Document</title>
 </head>
 <body>
-  <nav class="teal">
+    <!-- Navigation Bar -->
+   <nav class="teal">
     <div class="nav-wrapper">
         <a href="/" class="brand-logo center">📚 Library</a>
     </div>
-</nav>
-<!-- MAin Content -->
- <div class="container" id="bottomMargin">
-  <h2 class=""
- </div>
-  <h1>New Page</h1>
+   </nav>
+<!-- Main Content -->
+<div class="container" id="bottomMargin">
+<h2 class="center-align">Add a New Book</h2>
+<!-- POST ROUTE -->
+<form action="/books" method="POST" class="col s12">
+  <div class="row">
+      <div class="input-field col s12">
+        <input type="text" name="title" id="title" required>
+        <label for="title">Title</label>
+      </div>
+  </div>
+   <div class="row">
+      <div class="input-field col s12">
+        <input type="text" name="author" id="author" required>
+        <label for="author">Author</label>
+      </div>
+  </div>
+  <div class="row center-align">
+      <button class="btn wave-affect waves-ligth teal">Submit</button>
+      <a href="/books" class="btn  waves-effect waves-light orange">Back</a>
+  </div>
+</form>
 </body>
 </html>
-

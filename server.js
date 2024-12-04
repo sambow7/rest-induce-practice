@@ -54,7 +54,7 @@ app.post('/books', (req, res) => {
     author: req.body.author || "new author",
   }
   books.push(newBook);
-  res.status(201).json({ ...newBook, message: "Book Created Succesfully." }) //what does this line mean?
+  res.status(201).redirect('/books')
 });
 
 //Show
@@ -84,7 +84,7 @@ app.put('/books/:id', (req, res) => {
 //~~~~~~~~~~~~~
 
 
-const PORT = 3000;
+const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`🎧 Server is runnin on http://localhost:${PORT}`);
 });
