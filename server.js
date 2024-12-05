@@ -1,10 +1,19 @@
+const dotenv = require('dotenv')
+dotenv.config();
 const methodOverride = require('method-override');
 const express = require('express');
 const morgan = require('morgan');
 const books = require('./data/books.js');
-
 const app = express();
+const mongoose = require('mongoose');
 const PORT = 3001;
+
+mongoose.connect(process.env.MONGODB_URI, {
+}).then(() => {
+    console.log('Connected to MongoDB');
+}).catch((err) => {
+    console.log(err);
+})
 
 app.use(morgan('dev'));
 app.use(express.json());
