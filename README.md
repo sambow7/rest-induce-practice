@@ -101,3 +101,6 @@ This project demonstrates the implementation of a RESTful API for managing a col
 
 ## What I Learned
 Through this project, I gained a strong foundation in RESTful API development and server-side rendering. I also improved my debugging skills, middleware configuration, and understanding of dynamic data handling. This project reflects my ability to build scalable, maintainable backend solutions while adhering to industry-standard practices.
+
+
+## "dev": nodemon server.js && npm i "example"

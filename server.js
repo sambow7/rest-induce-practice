@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const books = require('./data/books.js');
 const app = express();
 const mongoose = require('mongoose');
+const Book = require('./models/book.js');
 const PORT = 3001;
 
 mongoose.connect(process.env.MONGODB_URI, {
@@ -23,21 +24,26 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
-// I.N.D.U.C.E. routes
+// I.N.D.U.C.E.
 
-// I - Index
+//Seed Routes
+app.use('/', require('./routes/seed.js'));
+
+//Home Route 
+app.use('/', require('./routes/home.js'));
+
+
+// Index
 app.get('/', (req, res) => {
     res.render('home', { title: 'Library' });
-})
-
+});
 app.get('/books', (req, res) => {
     res.render('book', { title: "Book List", books: books });
-})
-
+});
 
 app.get('/books/new', (req, res) => {
     res.render('book/new.ejs', { title: 'New Book' });
-})
+});
 
 app.get('/books/:id', (req, res) => {
     const book = books.find(book => book.id === Number(req.params.id));
@@ -46,9 +52,9 @@ app.get('/books/:id', (req, res) => {
     } else {
         res.status(404).render('404/notFound', { title: 'Book Not Found' });
     }
-})
+});
 
-// N - New
+// New
 app.post('/books/new', (req, res) => {
     const newBook = { id: books.length + 1, title: 'New Book', author: 'New Author' };
     books.push(newBook);
@@ -57,7 +63,17 @@ app.post('/books/new', (req, res) => {
     res.send(response);
 })
 
-// D - Delete
+// app.post('/seed', async (req, res) => {
+//     try {
+//         await Book.insertMany(books)
+//         res.status(201).send('books seeding')
+//     } catch (error) {
+//         console.log(error.message)
+//         res.status(404).send('error seeding bok')
+//     }
+// });
+
+// Delete
 app.delete('/books/:id', (req, res) => {
     const bookId = parseInt(req.params.id);
     const bookIdx = books.findIndex(book => book.id === bookId);
@@ -69,7 +85,7 @@ app.delete('/books/:id', (req, res) => {
     res.status(200).redirect('/books');
 })
 
-// U - Update
+// Update
 app.put('/books/:id', (req, res) => {
     const bookId = parseInt(req.params.id);
     const bookIndex = books.findIndex(book => book.id === bookId)
@@ -84,7 +100,7 @@ app.put('/books/:id', (req, res) => {
     }
 })
 
-// C - Create
+// Create
 app.post('/books', (req, res) => {
     const newBook = { 
         id: books.length + 1,
@@ -101,7 +117,7 @@ app.post('/books', (req, res) => {
     }
 })
 
-// E - Edit
+// Edit
 app.get('/books/:id/edit', (req, res) => {
     const book = books.find(book => book.id === Number(req.params.id));
     if (book) {
