@@ -9,6 +9,4 @@ router.get('/books/:id/edit', bookCtrl.editBook);
 router.put('/books/:id', bookCtrl.updateBook);
 router.delete('/books/:id', bookCtrl.deleteBook);
 
-
-
 module.exports = router;
