@@ -1,36 +1,4 @@
-const dotenv = require('dotenv')
-dotenv.config();
-const methodOverride = require('method-override');
-const express = require('express');
-const morgan = require('morgan');
-const books = require('./data/books.js');
-const app = express();
-const mongoose = require('mongoose');
-const Book = require('./models/book.js');
-const PORT = 3001;
-
-mongoose.connect(process.env.MONGODB_URI, {
-}).then(() => {
-    console.log('Connected to MongoDB');
-}).catch((err) => {
-    console.log(err);
-})
-
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(methodOverride('_method'));
-app.use(express.urlencoded({ extended: true }));
-
-app.set('view engine', 'ejs');
-app.set('views', './views');
-
-// I.N.D.U.C.E.
-
-//Seed Routes
-app.use('/', require('./routes/seed.js'));
-
-//Home Route 
-app.use('/', require('./routes/home.js'));
+const books = require('../data/books');
 
 
 // Index
@@ -125,11 +93,4 @@ app.get('/books/:id/edit', (req, res) => {
     } else {
         res.status(404).render('404/notFound', { title: 'Book Not Found' });
     }
-});
-
-//~~~~~~~~~~~
-// LISTENER
-//~~~~~~~~~~~~
-app.listen(PORT, () => {
-    console.log(`Server is listening on port ${PORT}`);
-});
+})

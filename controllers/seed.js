@@ -1,5 +1,5 @@
 const Book = require('../models/book');
-const books = requires('../data/books');
+const books = require('../data/books');
 
 
 
