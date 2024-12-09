@@ -1,4 +1,17 @@
-const books = require('../data/books')
+
+const Book = require('../models/book')
+
+
+async function index(req, res) {
+
+  try {
+    const books = await Book.find({})
+    res.render('books', {title: 'Book List', books})
+  } catch (error) {
+    console.error(error.message);
+    res.render(500), {title: 'Book List', books}
+  }
+}
 
 
 function index(req, res) {
