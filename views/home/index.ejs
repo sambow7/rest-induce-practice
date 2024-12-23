@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,13 +7,31 @@
     <title>Library📚</title>
 </head>
 <body>
-<%- include('../partials/nav') %>
-
+    <% if (user) { %>
+     <!-- Navigation Bar -->
+    <nav class="teal">
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo center">📚 Library</a>
+        </div>
+    </nav>
 <div class="container">
+    <div class="center-align" id="bottomMargin">
+        <a href="/books" class="btn">Go to Books Page</a>
+    </div>
     <div class="center-align" style="margin-top: 40px;">
-        <a href="/books" class="btn blue darken-1">Go to Books Page</a>
+            <!-- new sign out link -->
+            <a href="/auth/sign-out" class="btn teal center-align">Sign out</a>
+        </div>
     </div>
-    </div>
-    
+<% } else { %>
+
+  <!-- Welcome message for guests -->
+        <div class="welcome-message">
+            <h4>Welcome to the app, guest.</h4>
+            <p>
+                <a href="/auth/sign-up" class="btn teal">Sign up</a> or <a href="/auth/sign-in" class="btn teal">Sign in</a>            </p>
+        </div>
+
+    <% } %>
 </body>
 </html>
