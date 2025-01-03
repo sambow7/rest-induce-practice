@@ -5,6 +5,9 @@ const Book = require('../models/book')
 async function index(req, res) {
 
     try {
+        if (!req.session.user) {
+            return res.redirect('/auth/sign-in');
+        }
         const books = await Book.find({})
         res.render('books', { title: 'Book List', books })
     } catch (error) {
@@ -21,14 +24,14 @@ function newBook(req, res) {
 
 async function postBook(req, res) {
     try {
-        const { title = "new book", author = "new author" } = req.body;
-
-        const newBook = new Book({
-            title: title,
-            author: author
-        })
-
-        await newBook.save();
+        if (!req.session.user) {
+            return res.redirect('/auth/sign-in');
+        }
+        const newBook = {
+            ...req.body,
+            createdBy: req.session.user._id
+        }
+        await Book.create(newBook);
         res.status(201).redirect('/books')
     } catch (error) {
         console.error(error.message);
