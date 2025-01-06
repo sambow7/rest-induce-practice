@@ -8,5 +8,6 @@ router.get('/books/:id', bookCtrl.showBook);
 router.get('/books/:id/edit', bookCtrl.editBook);
 router.put('/books/:id', bookCtrl.updateBook);
 router.delete('/books/:id', bookCtrl.deleteBook);
+router.post('/books/:id/comments');
 
 module.exports = router;

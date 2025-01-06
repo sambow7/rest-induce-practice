@@ -26,6 +26,25 @@ function newBook(req, res) {
     res.render('books/new', { title: 'New Book' })
 }
 
+async function addComment(req, res) {
+
+    try {
+        const book = await Book.findById(req.params.id);
+        const newComment = {
+            ...req.body,
+            createdBy: req.session.user.id
+        }
+
+        book.comments.push(newComment)
+        await book.save()
+        res.status(200).redirect('/books')
+    } catch (error) {
+        console.error('Error adding new comment:', error)
+        res.status(500).send('Internal Server Error')
+    }
+
+}
+
 async function postBook(req, res) {
     try {
         if (!req.session.user) {

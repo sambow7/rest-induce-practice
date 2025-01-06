@@ -13,28 +13,53 @@
 <body>
   <%- include('../partials/nav') %>
 
-    <div class="container">
-      <div class="center-align" style="margin-top: 40px;">
-        <ul class="collection">
-          <% for( let index = 0; index < books.length; index++ ) { %>
-              <li class="collection-item">
-          <a href="/books/<%= books[index].id %>"><strong><%= books[index].title %></strong> by <%= books[index].author %></a>
-          <div style="margin-left: 50px;">
-              <span style="font-size: smaller;color: lightseagreen;">
-                      Created by: <strong>
-                          <!-- turnary operator for two scenarios -->
-                          <%= books[index].createdBy ? books[index].createdBy.username : 'Unknown' %>
-                      </strong>
-                  </span>
-                  <span style="font-size: smaller;color: lightseagreen;">
-                      <%= books[index].formattedDate ? books[index].formattedDate : 'Date not available' %>
-                  </span>
-          </div>
-          </li>
-          <% } %>
-      </ul>
-      </div>
-      <a href="/books/new" class="btn blue darken-1">Add New Book</a>
+  <div class="container">
+    <h1 class="center-align">Books List</h1>
+    <ul class="collection">
+        <% books.forEach(book => { %>
+        <li class="collection-item">
+            <a href="/books/<%= book._id %>">
+                <strong><%= book.title %></strong> by <%= book.author %>
+            </a>
+            <div class="book-container">
+                <span class="created-by">
+                    Created by: <strong>
+                        <%= book.createdBy ? book.createdBy.username : 'Unknown' %>
+                    </strong>
+                </span>
+                <span class="created-by">
+                    <%= book.formattedDate ? book.formattedDate : 'Date not available' %>
+                </span>
+            </div>
+            <% book.comments.forEach(comment => { %>
+            <p class="comment">
+                <% if (comment.createdBy) { %>
+                <%= comment.createdBy.username %>
+                <% } %>
+                <%= comment.content %>
+            </p>
+            <% }) %>
+            <form action="/books/<%= book._id %>/comments" method="POST">
+                <div class="row">
+                    <form class="col s12">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <i class="material-icons prefix">comment</i>
+                                <textarea name="content" id="icon_prefix2"
+                                    class="tiny materialize-textarea"></textarea>
+                                <input class="comment-input" type="submit" value="Comment">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </form>
+        </li>
+        <% }); %>
+    </ul>
+    <div class="center-align">
+        <a href="/books/new" class="btn waves-effect waves-light teal">Add a New Book</a>
+    </div>
+</div>
 
 </body>
 
