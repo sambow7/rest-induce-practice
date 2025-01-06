@@ -1,5 +1,6 @@
-const Book = require('../models/book');
-const moment = require('moment');
+
+const Book = require('../models/book')
+const moment = require('moment')
 
 // fetch all data
 async function index(req, res) {
@@ -13,7 +14,7 @@ async function index(req, res) {
             ...book.toObject(),
             formattedDate: moment(book.createdAt).fromNow()
         }))
-        res.render('books', { title: 'Book List', books: formattedBook })
+        res.render('books', { title: 'Book List 2', books: formattedBook })
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Internal server error');
@@ -25,6 +26,27 @@ async function index(req, res) {
 function newBook(req, res) {
     res.render('books/new', { title: 'New Book' })
 }
+
+// Create - Add a new book
+async function postBook(req, res) {
+    try {
+        if (!req.session.user) {
+            return res.redirect('/auth/sign-in');
+        }
+        console.log(req.session.user); // Ensure this contains the user with _id
+
+        const newBook = {
+            ...req.body,
+            createdBy: req.session.user.id
+        };
+        await Book.create(newBook);
+        res.status(200).redirect('/books');
+    } catch (error) {
+        console.error('Error adding new book:', error);
+        res.status(500).send('Internal Server Error');
+    }
+}
+
 
 async function addComment(req, res) {
 
@@ -41,24 +63,6 @@ async function addComment(req, res) {
     } catch (error) {
         console.error('Error adding new comment:', error)
         res.status(500).send('Internal Server Error')
-    }
-
-}
-
-async function postBook(req, res) {
-    try {
-        if (!req.session.user) {
-            return res.redirect('/auth/sign-in');
-        }
-        const newBook = {
-            ...req.body,
-            createdBy: req.session.user._id
-        }
-        await Book.create(newBook);
-        res.status(201).redirect('/books')
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).send('Internal server error')
     }
 
 }
@@ -113,15 +117,20 @@ async function updateBook(req, res) {
 
 }
 
-function deleteBook(req, res) {
-    const bookId = parseInt(req.params.id);
-    const bookIndex = books.findIndex(book => book.id === bookId);
-    if (bookIndex !== -1) {
-        books.splice(bookIndex, 1);
-    } else {
-        res.status(404).render('404/notFound', { title: 'Book Not Found' });
+async function deleteBook(req, res) {
+    try {
+        const { id } = req.params;
+        const deletedBook = await Book.findByIdAndDelete(id)
+        if (deletedBook) {
+            res.status(200).redirect('/books')
+        } else {
+            res.status(404).render('404/notFound', { title: 'Book Not Found' });
+        }
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Internal Server Error")
     }
-    res.redirect('/books');
+
 }
 
-module.exports = { index, newBook, postBook, editBook, updateBook, showBook, deleteBook }
+module.exports = { index, newBook, postBook, editBook, updateBook, showBook, deleteBook, addComment }
